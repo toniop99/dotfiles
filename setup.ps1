@@ -1,8 +1,9 @@
 $source = "./"
-$destination = "~/.config/"
+$destination = "~/.config/dotfiles"
 
 # Expand the destination path
 $destination = [System.Environment]::ExpandEnvironmentVariables($destination)
+Write-Output $destination
 
 # Check if the destination directory exists, if not, create it
 if (!(Test-Path -Path $destination)) {
@@ -10,36 +11,19 @@ if (!(Test-Path -Path $destination)) {
 }
 
 # Copy the dotfiles folder to the destination
-Copy-Item -Path $source -Destination $destination -Recurse -Force
+Copy-Item -Path "$source*" -Destination $destination -Recurse -Force
 
-# Install alacritty config
-try {
-    $alacritty = Get-Command alacritty -ErrorAction Stop
 
-    $alacrittyConfigSource = "./alacritty" # Append \* to copy only the contents
-    $alacrittyConfigFile = $alacrittyConfigSource + "/alacritty-win.toml"
+$dotfilesDirectories = Get-ChildItem -Path $destination -Directory
 
-    $alacrittyConfigDestination = "%APPDATA%\alacritty"
-    $alacrittyConfigDestinationFile = $alacrittyConfigDestination + "\alacritty.toml"
+foreach ($directory in $dotfilesDirectories) {
+    if ($dir.Name -notMatch '^\..*') {
+        $installScriptPath = Join-Path -Path $directory.FullName -ChildPath "install/install.ps1"
 
-    # Expand the destination path
-    $alacrittyConfigDestination = [System.Environment]::ExpandEnvironmentVariables($alacrittyConfigDestination)
-    $alacrittyConfigDestinationFile = [System.Environment]::ExpandEnvironmentVariables($alacrittyConfigDestinationFile)
-
-    # Check if the destination directory exists, if it does, delete it
-    if ((Test-Path -Path $destination)) {
-        Write-Output "Alacritty config already exists. Deleting the existing config."
-        Remove-Item -Path $alacrittyConfigDestination -Recurse -Force
+        if (Test-Path -Path $installScriptPath) {
+            Write-Output "Running install script for $directory"
+            & $installScriptPath $destination
+            #            Invoke-Expression -Command $installScriptPath
+        }
     }
-
-    New-Item -ItemType Directory -Force -Path $alacrittyConfigDestination
-
-
-    # Copy the Alacritty configuration files to the destination
-    Copy-Item -Path $alacrittyConfigFile -Destination $alacrittyConfigDestinationFile -Recurse -Force
-
-    Write-Output "Alacritty config installed."
-
-} catch {
-    Write-Output "Alacritty is not installed. Install it before running this script."
 }

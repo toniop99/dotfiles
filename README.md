@@ -9,6 +9,7 @@ Clone the repository on your system
 ```
 ### Windows
 ```bash
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
+
 ./setup.ps1
-```[
-]()
+```
