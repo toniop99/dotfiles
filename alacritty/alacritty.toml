@@ -1,0 +1,42 @@
+import = [
+"~/.config/dotfiles/alacritty/themes/catppuccin-frappe.toml",
+]
+
+live_config_reload = true
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding = {x = 6, y = 6 }
+dynamic_padding = false
+startup_mode = "Windowed"
+dimensions = { columns = 100, lines = 30 }
+decorations = "Full"
+opacity = 1.0
+dynamic_title = true
+
+[scrolling]
+multiplier = 2
+
+[font]
+size = 16
+normal = { family = "FiraCode Nerd Font"}
+builtin_box_drawing = true
+
+[selection]
+save_to_clipboard = false
+
+[mouse]
+hide_when_typing = true
+bindings = [
+    {  mouse = "Right", action = "Paste" },
+]
+
+[keyboard]
+bindings = [
+    { key = "V", mods = "Control|Shift", action = "Paste" },
+    { key = "C", mods = "Control|Shift", action = "Copy" },
+    { key = "N", mods = "Control", action = "CreateNewWindow" },
+    { key = "F", mods = "Control", action = "ToggleFullscreen" },
+]
