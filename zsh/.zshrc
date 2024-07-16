@@ -67,3 +67,5 @@ command -v exass >/dev/null 2>&1 && alias ls='exa' || alias ls='ls --color=auto'
 # Shell integrations
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
+
+source "$HOME/.config/dotfiles/zsh/hosts/work-laptop.zsh"
