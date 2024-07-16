@@ -2,7 +2,7 @@ import = [
     "~/.config/dotfiles/alacritty/alacritty.toml",
 ]
 
-working_directory = '\\wsl$\Ubuntu-22.04\home\toniop'
+working_directory = '\\wsl.localhost\Debian\home\toniop'
 
 [shell]
 program = 'wsl'

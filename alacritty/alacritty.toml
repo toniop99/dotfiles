@@ -35,5 +35,7 @@ bindings = [
   { key = "C", mods = "Control|Shift", action = "Copy" },
   { key = "N", mods = "Control", action = "CreateNewWindow" },
   { key = "F", mods = "Control", action = "ToggleFullscreen" },
-  { key = "W", mods = "Control", action = "Quit" }
+  { key = "W", mods = "Control", action = "Quit" },
+  { key = "Right", mods = "Control", chars = "\u001BF" },
+  { key = "Left",  mods = "Control", chars = "\u001BB" }
 ]
