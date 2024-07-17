@@ -2,6 +2,7 @@ local stages_util = require("notify.stages.util")
 
 return {
   "rcarriga/nvim-notify",
+  enabled = true,
   opts = {
     timeout = 4000,
     stages = {
