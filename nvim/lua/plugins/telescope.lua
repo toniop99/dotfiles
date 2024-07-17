@@ -1,31 +1,35 @@
 return {
   {
-    "nvim-telescope/telescope-ui-select.nvim",
-
-  },
-
-  {
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.8",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local telescope = require("telescope")
-
-      telescope.setup({
-        extensions = {
-          ["ui-select"] = {
-            require("telescope.themes").get_dropdown({}),
-          },
-        },
-      })
-
-      local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-      vim.keymap.set("n", "<leader><leader>", builtin.oldfiles, {})
-
-
-      telescope.load_extension("ui-select")
+    dependencies = {
+      {
+        "nvim-telescope/telescope-live-grep-args.nvim",
+      },
+    },
+    opts = {
+      defaults = {
+        layout_strategy = "horizontal",
+        layout_config = { prompt_position = "top", width = 0.9, height = 0.9 },
+        sorting_strategy = "ascending",
+        winblend = 0,
+      },
+    },
+    keys = {
+      {
+        "<leader>/",
+        "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+        desc = "Grep with args (root dir)",
+      },
+      {
+        "<leader>cb",
+        ":Telescope lsp_definitions<cr>",
+        desc = "Go to definition",
+      },
+    },
+    config = function(_, opts)
+      local tele = require("telescope")
+      tele.setup(opts)
+      tele.load_extension("live_grep_args")
     end,
   },
 }

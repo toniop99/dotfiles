@@ -1,10 +1,10 @@
 return {
   {
-    'f-person/git-blame.nvim',
+    "f-person/git-blame.nvim",
     config = function()
-      require('gitblame').setup {
+      require("gitblame").setup({
         enabled = true,
-      }
-    end
-  }
+      })
+    end,
+  },
 }
