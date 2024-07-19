@@ -4,20 +4,29 @@ return {
   "rcarriga/nvim-notify",
   enabled = true,
   opts = {
-    timeout = 4000,
+    timeout = 2500,
     stages = {
       function(state)
         local next_height = state.message.height + 2
-        local next_row = stages_util.available_slot(state.open_windows, next_height, stages_util.DIRECTION.BOTTOM_UP)
-        if not next_row then
+        local next_row = stages_util.available_slot(state.open_windows, next_height, stages_util.DIRECTION.TOP_DOWN)
+
+        --[[
+        -- we only want to print from the top left to the middle left of the window
+        -- example: if next_row is 30 and math.floor(vim.api.nvim_win_get_height(0) / 2) is 25 we cannont print next message
+        --]]
+        local can_not_print_next_message = next_row > math.floor(vim.api.nvim_win_get_height(0) / 3)
+        -- print("next row: " .. next_row)
+        -- print("next height: " .. next_height)
+        -- print("win height half: " .. math.floor(vim.api.nvim_win_get_height(0) / 2))
+        if not next_row or can_not_print_next_message then
           return nil
         end
         return {
           relative = "editor",
           anchor = "NE",
-          width = state.message.width,
+          width = state.message.width / 2,
           height = state.message.height,
-          col = 0, --vim.opt.columns:get(),
+          col = vim.opt.columns:get(),
           row = next_row,
           border = "rounded",
           style = "minimal",
