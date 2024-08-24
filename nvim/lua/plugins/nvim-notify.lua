@@ -15,16 +15,14 @@ return {
         -- example: if next_row is 30 and math.floor(vim.api.nvim_win_get_height(0) / 2) is 25 we cannont print next message
         --]]
         local can_not_print_next_message = next_row > math.floor(vim.api.nvim_win_get_height(0) / 3)
-        -- print("next row: " .. next_row)
-        -- print("next height: " .. next_height)
-        -- print("win height half: " .. math.floor(vim.api.nvim_win_get_height(0) / 2))
-        if not next_row or can_not_print_next_message then
+
+        if true or not next_row or can_not_print_next_message then
           return nil
         end
         return {
           relative = "editor",
           anchor = "NE",
-          width = state.message.width / 2,
+          width = math.floor(state.message.width / 2),
           height = state.message.height,
           col = vim.opt.columns:get(),
           row = next_row,

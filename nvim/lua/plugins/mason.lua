@@ -6,6 +6,7 @@ return {
       "shellcheck",
       "shfmt",
       "intelephense",
+      "codelldb",
     },
   },
 }

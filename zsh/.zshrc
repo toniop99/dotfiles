@@ -69,3 +69,4 @@ source <(fzf --zsh)
 eval "$(zoxide init zsh)"
 
 source "$HOME/.config/dotfiles/zsh/hosts/work-laptop.zsh"
+source "$HOME/.config/dotfiles/zsh/hosts/odin-pc.zsh"
